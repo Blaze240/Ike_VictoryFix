@@ -3,15 +3,14 @@ use {
         lua2cpp::*,
         phx::*,
         app::{sv_animcmd::*, lua_bind::*, *},
-        lib::lua_const::*
+        lib::{lua_const::*, L2CValue, L2CAgent},
     },
     smash_script::*,
     smashline::*
 };
 
-#[acmd_script( agent = "ike", script = "sound_win2", category = ACMD_SOUND )]
-unsafe fn ike_sound_win2(agent: &mut L2CAgentBase) {
-    if WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR) % 2 == 1 {
+unsafe extern "C" fn ike_sound_win2(agent: &mut L2CAgentBase) {
+    if WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR) % 2 == 0 {
         frame(agent.lua_state_agent, 10.0);
         if macros::is_excute(agent) {
             macros::PLAY_SE(agent, Hash40::new("se_ike_swing_l"));
@@ -41,7 +40,8 @@ unsafe fn ike_sound_win2(agent: &mut L2CAgentBase) {
                       }
                      }
 pub fn install() {
-    smashline::install_acmd_scripts!(
-     ike_sound_win2
-    );
+    Agent::new("ike")
+    .sound_acmd("sound_win2",ike_sound_win2)
+    .install();
 }
+
