@@ -9,48 +9,39 @@ use {
     smashline::*
 };
 
-#[acmd_script( agent = "master", script = "sound_win2", category = ACMD_SOUND )]
-unsafe fn master_sound_win2(agent: &mut L2CAgentBase) {
+#[acmd_script( agent = "ike", script = "sound_win2", category = ACMD_SOUND )]
+unsafe fn ike_sound_win2(agent: &mut L2CAgentBase) {
     if WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR) % 2 == 1 {
-        frame(agent.lua_state_agent, 35.0);
+        frame(agent.lua_state_agent, 10.0);
         if macros::is_excute(agent) {
-            macros::PLAY_SE_NO_3D(agent, Hash40::new("vc_master_win02"));
+            macros::PLAY_SE(agent, Hash40::new("se_ike_swing_l"));
         }
-    frame(agent.lua_state_agent, 40.0);
+    frame(agent.lua_state_agent, 17.0);
     if macros::is_excute(agent) {
-        macros::PLAY_SE_NO_3D(agent, Hash40::new("se_master_win02_01"));
+        macros::PLAY_SE(agent, Hash40::new("se_ike_swordgroundhit"));
     }
-    frame(agent.lua_state_agent, 95.0);
+    frame(agent.lua_state_agent, 53.0);
     if macros::is_excute(agent) {
-        macros::PLAY_SE_NO_3D(agent, Hash40::new("se_master_win02_02"));
-        macros::PLAY_SE_NO_3D(agent, Hash40::new("se_master_cloth_m"));
-    }
-    frame(agent.lua_state_agent, 125.0);
-    if macros::is_excute(agent) {
-        macros::PLAY_SE_NO_3D(agent, Hash40::new("se_master_win02_03"));
-    }
+        macros::PLAY_SE_NO_3D(agent, Hash40::new("vc_ike_win02"));
+}
 }
     else {
-        frame(agent.lua_state_agent, 40.0);
+        frame(agent.lua_state_agent, 10.0);
         if macros::is_excute(agent) {
-            macros::PLAY_SE_NO_3D(agent, Hash40::new("se_master_win02_01"));
+            macros::PLAY_SE(agent, Hash40::new("se_ike_swing_l"));
         }
-        frame(agent.lua_state_agent, 45.0);
+        frame(agent.lua_state_agent, 17.0);
         if macros::is_excute(agent) {
-            macros::PLAY_SE_NO_3D(agent, Hash40::new("vc_master_win02"));
+            macros::PLAY_SE(agent, Hash40::new("se_ike_swordgroundhit"));
         }
-        frame(agent.lua_state_agent, 93.0);
+        frame(agent.lua_state_agent, 50.0);
         if macros::is_excute(agent) {
-            macros::PLAY_SE_NO_3D(agent, Hash40::new("se_master_win02_02"));
-        }
-        frame(agent.lua_state_agent, 125.0);
-        if macros::is_excute(agent) {
-            macros::PLAY_SE_NO_3D(agent, Hash40::new("se_master_win02_03"));
+            macros::PLAY_SE_NO_3D(agent, Hash40::new("vc_ike_win02"));
         }
                       }
                      }
 pub fn install() {
     smashline::install_acmd_scripts!(
-     master_sound_win2
+     ike_sound_win2
     );
 }
